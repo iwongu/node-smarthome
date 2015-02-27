@@ -1,0 +1,10 @@
+{
+  "name": "pi-surveillance",
+  "version": "0.0.1",
+  "description": "Simple surveillance system using Raspberry Pi + Node.js",
+  "devDependencies": {
+    "node-pubsub": "iwongu/node-pubsub"
+  },
+  "dependencies": {
+  }
+}
