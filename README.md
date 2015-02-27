@@ -58,3 +58,16 @@ As a proof of concept, I will use Raspberry Pi to host the controller and adapte
 TBD: photos
 
 TBD: videos
+
+## Control/monitoring
+
+As you can see in the design, once the controller and adapters start their jobs, it is easy to create a control/monitoring system.
+
+1. Local admin
+   * You can build a simple web server using express and socket.io.
+   * TBD: examples
+   * TBD: framework
+1. Global admin
+   * I plan to make pubsub support global scope. An idea is that it uses other provider seamlessly. e.g. Firebase. Your controller doesn't have to be updated. You will just need to config it to use the provider.
+   * TBD: examples
+   * TBD: way to write one admin console and use it for local and global.
