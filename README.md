@@ -1,10 +1,28 @@
-# pi-surveillance
+# node-smarthome
 
-Simple surveillance system using Raspberry Pi + Node.js
+Code your smart home using node.js
 
-## System
+## Example
 
-This simple surveillance system consists of three parts; motion detector, display, lights.
-The display will show alert whenever the system detects motions. Also the lights will be turned on. After a fixed amount of time, the lights will be off if there is no more motions detected.
+You have a motion detector and lights in your living room. You want to turn the lights on when the motion is detected in the living room and turn them off when there is none for 5 minutes.
 
-It uses Raberry Pi for its controller, PIR sensors for motion detectors, and LCD module for display. The controller is abstracted so that it can be reused with other types of motion detectors or display.
+```js
+pubsub('detector/living_room').
+  on('value', function(data) {
+    var detected = data.value.status;
+    if (detected) {  // motion is detected.
+      // turn on all lights in living room.
+      pubsub('light/living_room').visitDescendants(function(node) {
+        node.setValue({status: true});
+      });
+      timer('light_off').stop();
+    } else {  // no motion.
+      timer('light_off').start(function() {
+        // turn off all lights in living room.
+        pubsub('light/living_room').visitDescendants(function(node) {
+          node.setValue({status: false});
+        });
+      }, 5 * 60 * 1000);  // after 5 minutes.
+    }
+  });
+```
