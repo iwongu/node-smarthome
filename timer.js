@@ -19,6 +19,9 @@ Timer.prototype.stop = function() {
 var timers = {};
 
 module.exports = function(name) {
+  if (!name) {
+    return new Timer();
+  }
   if (name in timers) {
     return timers[name];
   }

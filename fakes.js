@@ -19,10 +19,10 @@ pubsub('light/living_room/2').
   });
 
 // mimic motions.
-setTimeout(function() {
+timer().start(function() {
   pubsub('detector/living_room/1').setValue({status: true});
 }, 2000);
 
-setTimeout(function() {
+timer().start(function() {
   pubsub('detector/living_room/1').setValue({status: false});
 }, 4000);
