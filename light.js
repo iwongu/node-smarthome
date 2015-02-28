@@ -1,7 +1,7 @@
 'use strict';
 
 var pubsub = require('node-pubsub');
-var gpio = require('./pi-gpio-promise');
+var gpio = require('pi-gpio-promise');
 
 var relay_pin = 7;
 

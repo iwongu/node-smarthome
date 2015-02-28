@@ -5,7 +5,7 @@
   "devDependencies": {},
   "dependencies": {
     "node-pubsub": "iwongu/node-pubsub",
-    "pi-gpio": "0.0.6",
+    "pi-gpio-promise": "iwongu/pi-gpio-promise",
     "promise": "^6.1.0"
   }
 }

@@ -1,8 +1,7 @@
 'use strict';
 
 var pubsub = require('node-pubsub');
-var Promise = require('promise');
-var gpio = require('./pi-gpio-promise');
+var gpio = require('pi-gpio-promise');
 var timer = require('./timer');
 
 var pir_pin = 8;
