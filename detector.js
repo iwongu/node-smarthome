@@ -11,19 +11,6 @@ var lock_now = true;
 var low_in;
 var take_low_time;
 
-function setup() {
-  console.log('calibrating sensor for ' + calibration_time + ' seconds');
-  return gpio.close(pir_pin).
-    then(function() {
-      return gpio.open(pir_pin, 'in');
-    }, function(err) {
-      return gpio.open(pir_pin, 'in');  // ignore error.
-    }).
-    then(function() {
-      return timer.start('calibration', calibration_time * 1000);
-    });
-}
-
 function loop(value) {
   gpio.read(pir_pin).then(function(value) {
     if (value) {
@@ -47,7 +34,21 @@ function loop(value) {
   });
 }
 
-setup().then(function() {
+
+console.log('calibrating sensor for ' + calibration_time + ' seconds');
+gpio.close(pir_pin).
+then(function() {
+  return gpio.open(pir_pin, 'in');
+}, function(err) {
+  return gpio.open(pir_pin, 'in');  // ignore error on closing.
+}).
+then(function() {
+  return timer.start('calibration', calibration_time * 1000);
+}).
+then(function() {
   console.log('calibrating done');
   setInterval(loop, 50);
+}).
+then(null, function(err) {
+  console.log(err);
 });
