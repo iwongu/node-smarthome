@@ -2,7 +2,7 @@
 
 var pubsub = require('node-pubsub');
 var gpio = require('pi-gpio-promise');
-var timer = require('./timer');
+var timer = require('timer-promise');
 
 var pir_pin = 8;
 var calibration_time = 10;

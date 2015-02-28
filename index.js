@@ -1,7 +1,7 @@
 'use strict';
 
 var pubsub = require('node-pubsub');
-var timer = require('./timer');
+var timer = require('timer-promise');
 
 require('./detector');
 require('./light');
@@ -22,7 +22,7 @@ pubsub('detector/living_room').
       pubsub('light/living_room').visitDescendants(function(node) {
         node.setValue({status: true});
       });
-      timer('light_off').stop();
+      timer.stop('light_off');
     } else {
       // after 5s.
       timer.start('light_off', 5000).then(function() {

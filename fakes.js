@@ -1,7 +1,7 @@
 'use strict';
 
 var pubsub = require('node-pubsub');
-var timer = require('./timer');
+var timer = require('timer-promise');
 
 pubsub('display/living_room/1').
   on('value', function(data) {
@@ -19,10 +19,14 @@ pubsub('light/living_room/2').
   });
 
 // mimic motions.
-timer().start(function() {
-  pubsub('detector/living_room/1').setValue({status: true});
-}, 2000);
-
-timer().start(function() {
-  pubsub('detector/living_room/1').setValue({status: false});
-}, 4000);
+timer.start('motion', 2000).
+  then(function() {
+    pubsub('detector/living_room/1').setValue({status: true});
+    return timer.start('motion', 2000);
+  }).
+  then(function() {
+    pubsub('detector/living_room/1').setValue({status: false});
+  }).
+  then(null, function(err) {
+    console.log(err);
+  });
