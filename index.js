@@ -3,7 +3,9 @@
 var pubsub = require('node-pubsub');
 var timer = require('./timer');
 
-require('./fakes');
+require('./detector');
+require('./light');
+//require('./fakes');
 
 // 1. detector/*
 //    data.value = {status: boolean}

@@ -1,10 +1,11 @@
 {
-  "name": "pi-surveillance",
+  "name": "node-smarthome",
   "version": "0.0.1",
-  "description": "Simple surveillance system using Raspberry Pi + Node.js",
-  "devDependencies": {
-    "node-pubsub": "iwongu/node-pubsub"
-  },
+  "description": "Code your smart home using node.js",
+  "devDependencies": {},
   "dependencies": {
+    "node-pubsub": "iwongu/node-pubsub",
+    "pi-gpio": "0.0.6",
+    "promise": "^6.1.0"
   }
 }
