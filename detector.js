@@ -36,19 +36,20 @@ function loop(value) {
 
 
 console.log('calibrating sensor for ' + calibration_time + ' seconds');
+
 gpio.close(pir_pin).
-then(function() {
-  return gpio.open(pir_pin, 'in');
-}, function(err) {
-  return gpio.open(pir_pin, 'in');  // ignore error on closing.
-}).
-then(function() {
-  return timer.start('calibration', calibration_time * 1000);
-}).
-then(function() {
-  console.log('calibrating done');
-  setInterval(loop, 50);
-}).
-then(null, function(err) {
-  console.log(err);
-});
+  then(function() {
+    return gpio.open(pir_pin, 'in');
+  }, function(err) {
+    return gpio.open(pir_pin, 'in');  // ignore error on closing.
+  }).
+  then(function() {
+    return timer.start('calibration', calibration_time * 1000);
+  }).
+  then(function() {
+    console.log('calibrating done');
+    setInterval(loop, 50);
+  }).
+  then(null, function(err) {
+    console.log(err);
+  });
