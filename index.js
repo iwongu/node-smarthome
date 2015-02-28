@@ -25,12 +25,12 @@ pubsub('detector/living_room').
       timer('light_off').stop();
     } else {
       // after 5s.
-      timer('light_off').start(function() {
+      timer.start('light_off', 5000).then(function() {
         // turn off all lights in living room.
         pubsub('light/living_room').visitDescendants(function(node) {
           node.setValue({status: false});
         });
-      }, 5000);
+      });
     }
   });
 

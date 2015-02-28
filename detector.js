@@ -1,7 +1,9 @@
 'use strict';
 
 var pubsub = require('node-pubsub');
-var gpio = require('pi-gpio');
+var Promise = require('promise');
+var gpio = require('./pi-gpio-promise');
+var timer = require('./timer');
 
 var pir_pin = 8;
 var calibration_time = 10;
@@ -10,17 +12,21 @@ var lock_now = true;
 var low_in;
 var take_low_time;
 
-function setup(callback) {
-  gpio.close(pir_pin, function(err) {
-    console.log('calibrating sensor for ' + calibration_time + ' seconds');
-    gpio.open(pir_pin, 'in', function(err) {
-      setTimeout(callback, calibration_time * 1000);
+function setup() {
+  console.log('calibrating sensor for ' + calibration_time + ' seconds');
+  return gpio.close(pir_pin).
+    then(function() {
+      return gpio.open(pir_pin, 'in');
+    }, function(err) {
+      return gpio.open(pir_pin, 'in');  // ignore error.
+    }).
+    then(function() {
+      return timer.start('calibration', calibration_time * 1000);
     });
-  });
 }
 
 function loop(value) {
-  gpio.read(pir_pin, function(err, value) {
+  gpio.read(pir_pin).then(function(value) {
     if (value) {
       if (lock_now) {
 	lock_now = false;
@@ -42,8 +48,7 @@ function loop(value) {
   });
 }
 
-setup(function() {
+setup().then(function() {
   console.log('calibrating done');
   setInterval(loop, 50);
 });
-

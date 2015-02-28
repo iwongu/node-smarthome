@@ -1,30 +1,29 @@
 'use strict';
 
-function Timer() {
-  this.timeout = undefined;
+var Promise = require('promise');
+
+var names = {};
+
+var timer = {};
+timer.start = function(name, delay) {
+  timer.stop(name);
+  return new Promise(function(resolve, reject) {
+    names[name] = setTimeout(function() {
+      if (names[name]) {
+        resolve(name);
+        delete names[name];
+      } else {
+        reject();  // cleared
+      }
+    }, delay);
+  });
 };
 
-Timer.prototype.start = function(callback, delay) {
-  this.stop();
-  this.timeout = setTimeout(callback, delay);
-};
-
-Timer.prototype.stop = function() {
-  if (this.timeout) {
-    clearTimeout(this.timeout);
-    this.timeout = undefined;
+timer.stop = function(name) {
+  if (names[name]) {
+    clearTimeout(names[name]);
+    delete names[name];
   }
 };
 
-var timers = {};
-
-module.exports = function(name) {
-  if (!name) {
-    return new Timer();
-  }
-  if (name in timers) {
-    return timers[name];
-  }
-  timers[name] = new Timer();
-  return timers[name];
-};
+module.exports = timer;
