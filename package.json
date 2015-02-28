@@ -6,6 +6,6 @@
   "dependencies": {
     "hierarchical-pubsub": "latest",
     "pi-gpio-promise": "latest",
-    "timer-promise": "iwongu/timer-promise"
+    "timer-promise": "latest"
   }
 }
