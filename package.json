@@ -2,6 +2,20 @@
   "name": "node-smarthome",
   "version": "0.0.1",
   "description": "Code your smart home using node.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:iwongu/node-smarthome.git"
+  },
+  "homepage": "https://github.com/iwongu/node-smarthome",
+  "bugs": {
+    "url": "https://github.com/iwongu/node-smarthome/issues"
+  },
+  "tags": [
+    "smarthome",
+    "smart",
+    "home",
+    "automation"
+  ],
   "devDependencies": {},
   "dependencies": {
     "hierarchical-pubsub": "latest",
