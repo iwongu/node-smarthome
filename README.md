@@ -29,7 +29,7 @@ pubsub('detector/living_room').
 
 ## Design
 
-It uses [pubsub](https://github.com/iwongu/node-pubsub) package as its hierarchical event tree. It can subscribe all events from motion detectors in living room using 'detector/living_room'. The detector will publish an event in 'detector/living_room/1'. The format for the event types is 'type/location/id', which is good enough for now.
+It uses [pubsub](https://github.com/iwongu/hierarchical-pubsub) package as its hierarchical event tree. It can subscribe all events from motion detectors in living room using 'detector/living_room'. The detector will publish an event in 'detector/living_room/1'. The format for the event types is 'type/location/id', which is good enough for now.
 
 Beyond this, we need to turn on the lights and detect the motion. To do these, it needs adapters. For example, the adapters for lights and detector might look like this.
 

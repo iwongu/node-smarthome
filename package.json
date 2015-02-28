@@ -1,6 +1,6 @@
 {
   "name": "node-smarthome",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Code your smart home using node.js",
   "repository": {
     "type": "git",
