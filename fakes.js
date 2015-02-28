@@ -1,6 +1,6 @@
 'use strict';
 
-var pubsub = require('node-pubsub');
+var pubsub = require('hierarchical-pubsub');
 var timer = require('timer-promise');
 
 pubsub('display/living_room/1').

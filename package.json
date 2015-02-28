@@ -4,7 +4,7 @@
   "description": "Code your smart home using node.js",
   "devDependencies": {},
   "dependencies": {
-    "node-pubsub": "iwongu/node-pubsub",
+    "hierarchical-pubsub": "latest",
     "pi-gpio-promise": "latest",
     "timer-promise": "iwongu/timer-promise"
   }

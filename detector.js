@@ -1,6 +1,6 @@
 'use strict';
 
-var pubsub = require('node-pubsub');
+var pubsub = require('hierarchical-pubsub');
 var gpio = require('pi-gpio-promise');
 var timer = require('timer-promise');
 

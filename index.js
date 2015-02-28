@@ -1,11 +1,11 @@
 'use strict';
 
-var pubsub = require('node-pubsub');
+var pubsub = require('hierarchical-pubsub');
 var timer = require('timer-promise');
 
-require('./detector');
-require('./light');
-//require('./fakes');
+//require('./detector');
+//require('./light');
+require('./fakes');
 
 // 1. detector/*
 //    data.value = {status: boolean}
