@@ -1,6 +1,6 @@
 'use strict';
 
-var pubsub = require('hierarchical-pubsub');
+var home = require('./lib/smarthome');
 var gpio = require('pi-gpio-promise');
 var timer = require('timer-promise');
 
@@ -17,7 +17,7 @@ function loop(value) {
       if (lock_now) {
 	lock_now = false;
 	console.log('motion detected');
-	pubsub('detector/living_room/1').setValue({status: true});
+	home.get('motion/sunnyvale/living-room/1').setValue({status: true});
       }
       take_low_time = true;
     } else {
@@ -28,7 +28,7 @@ function loop(value) {
       if (!lock_now && Date.now() - low_in > pause) {
 	lock_now = true;
 	console.log('motion ended');
-	pubsub('detector/living_room/1').setValue({status: false});
+	home.get('motion/sunnyvale/living-room/1').setValue({status: false});
       }
     }
   });
@@ -44,7 +44,7 @@ gpio.close(pir_pin).
     return gpio.open(pir_pin, 'in');  // ignore error on closing.
   }).
   then(function() {
-    return timer.start('calibration', calibration_time * 1000);
+    return timer.start(calibration_time * 1000);
   }).
   then(function() {
     console.log('calibrating done');

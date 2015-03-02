@@ -1,44 +1,41 @@
 'use strict';
 
-var pubsub = require('hierarchical-pubsub');
-var timer = require('timer-promise');
+var home = require('./lib/smarthome');
 
-//require('./detector');
-//require('./light');
-require('./fakes');
-
-// 1. detector/*
-//    data.value = {status: boolean}
-// 2. light/*
-//    data.value = {status: boolean}
-// 3. display/*
-//    data.value = {message: string}
-
-pubsub('detector/living_room').
-  on('value', function(data) {
-    var detected = data.value.status;
-    if (detected) {
-      // turn on all lights in living room.
-      pubsub('light/living_room').visitDescendants(function(node) {
-        node.setValue({status: true});
-      });
-      timer.stop('light_off');
-    } else {
-      // after 5s.
-      timer.start('light_off', 5000).then(function() {
-        // turn off all lights in living room.
-        pubsub('light/living_room').visitDescendants(function(node) {
-          node.setValue({status: false});
-        });
-      });
+home.deftype(
+  'light', {
+    value: {
+      status: 'boolean'
+    }
+  });
+home.deftype(
+  'motion', {
+    value: {
+      status: 'boolean'
     }
   });
 
-pubsub('detector/living_room').
-  on('value', function(data) {
-    pubsub('display/living_room').visitDescendants(function(node) {
-      var message = data.value.status ?
-          'motion detected in ' + data.event : 'no motion';
-      node.setValue({message: message});
+home.define(
+  'light/sunnyvale/living-room/1',
+  'light/sunnyvale/living-room/2',
+  'motion/sunnyvale/living-room/1'
+);
+
+require('./fakes');
+
+var timer = require('timer-promise');
+
+home.get('motion/sunnyvale/living-room').on('value', function(data) {
+  if (data.value.status) {
+    timer.stop('light-off');
+    home.get('light/sunnyvale/living-room').visitLeaves(function(node) {
+      node.setValue({status: true});
     });
-  });
+  } else {
+    timer.start('light-off', 2000).then(function() {
+      home.get('light/sunnyvale/living-room').visitLeaves(function(node) {
+        node.setValue({status: false});
+      });
+    });
+  }
+});

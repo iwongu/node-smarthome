@@ -1,31 +1,24 @@
 'use strict';
 
-var pubsub = require('hierarchical-pubsub');
+var home = require('./lib/smarthome');
 var timer = require('timer-promise');
 
-pubsub('display/living_room/1').
-  on('value', function(data) {
-    console.log('display 1 in living room: ' + data.value.message);
-  });
+home.get('light/sunnyvale/living-room/1').on('value', function(data) {
+  console.log('light 1 in living room: ' + data.value.status);
+});
 
-pubsub('light/living_room/1').
-  on('value', function(data) {
-    console.log('light 1 in living room: ' + data.value.status);
-  });
-
-pubsub('light/living_room/2').
-  on('value', function(data) {
-    console.log('light 2 in living room: ' + data.value.status);
-  });
+home.get('light/sunnyvale/living-room/2').on('value', function(data) {
+  console.log('light 2 in living room: ' + data.value.status);
+});
 
 // mimic motions.
-timer.start('motion', 2000).
+timer.start(2000).
   then(function() {
-    pubsub('detector/living_room/1').setValue({status: true});
-    return timer.start('motion', 2000);
+    home.get('motion/sunnyvale/living-room/1').setValue({status: true});
+    return timer.start(2000);
   }).
   then(function() {
-    pubsub('detector/living_room/1').setValue({status: false});
+    home.get('motion/sunnyvale/living-room/1').setValue({status: false});
   }).
   then(null, function(err) {
     console.log(err);

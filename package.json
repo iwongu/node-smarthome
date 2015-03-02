@@ -18,8 +18,7 @@
   ],
   "devDependencies": {},
   "dependencies": {
-    "hierarchical-pubsub": "latest",
-    "pi-gpio-promise": "latest",
-    "timer-promise": "latest"
+    "pi-gpio-promise": "iwongu/pi-gpio-promise",
+    "timer-promise": "iwongu/timer-promise"
   }
 }
