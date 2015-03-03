@@ -1,0 +1,22 @@
+{
+  "name": "node-smarthome",
+  "main": "client.js",
+  "version": "0.0.1",
+  "homepage": "https://github.com/iwongu/node-smarthome",
+  "authors": [
+    "Wongoo Lee <iwongu@gmail.com>"
+  ],
+  "description": "Code your smart home using node.js",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "firebase": "~2.2.1",
+    "jquery": "~2.1.3"
+  }
+}
