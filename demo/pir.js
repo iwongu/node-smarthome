@@ -1,6 +1,6 @@
 'use strict';
 
-var home = require('../lib/smarthome');
+var home = require('..');
 var gpio = require('pi-gpio-promise');
 var timer = require('timer-promise');
 
@@ -27,8 +27,8 @@ PIR.prototype.loop = function(value) {
     if (value) {
       if (this.lockNow) {
 	this.lockNow = false;
-	console.log('motion detected');
-	home.get(path).setValue({status: true});
+	console.log(this.path + ' motion detected');
+	home.get(this.path).setValue({status: true});
       }
       this.takeLowTime = true;
     } else {
@@ -38,28 +38,29 @@ PIR.prototype.loop = function(value) {
       }
       if (!this.lockNow && Date.now() - this.lowIn > this.pause) {
 	this.lockNow = true;
-	console.log('motion ended');
-	home.get(path).setValue({status: false});
+	console.log(this.path + ' motion ended');
+	home.get(this.path).setValue({status: false});
       }
     }
   }.bind(this));
 };
 
-PIR.prototype.setup = function() {
+PIR.prototype.run = function() {
+  var thiz = this;
   console.log('calibrating sensor for ' + this.calibrationTime + ' seconds');
   gpio.close(this.pin).
     then(function() {
-      return gpio.open(this.pin, 'in');
-    }.bind(this), function(err) {
-      return gpio.open(this.pin, 'in');  // ignore error on closing.
-    }.bind(this)).
+      return gpio.open(thiz.pin, 'in');
+    }, function(err) {
+      return gpio.open(thiz.pin, 'in');  // ignore error on closing.
+    }).
     then(function() {
-      return timer.start(this.calibrationTime * 1000);
-    }.bind(this)).
+      return timer.start(thiz.calibrationTime * 1000);
+    }).
     then(function() {
       console.log('calibrating done');
-      setInterval(loop, this.interval);
-    }.bind(this)).
+      setInterval(function() {thiz.loop()}.bind(thiz), thiz.interval);
+    }).
     then(null, function(err) {
       console.log(err);
     });

@@ -19,6 +19,7 @@
   "devDependencies": {},
   "dependencies": {
     "extend": "^2.0.0",
+    "firebase": "^2.2.1",
     "pi-gpio-promise": "iwongu/pi-gpio-promise",
     "timer-promise": "iwongu/timer-promise"
   }
