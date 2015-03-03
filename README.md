@@ -28,14 +28,14 @@ home.get('motion/living-room').on('value', function(data) {
 
 ## Design
 
-It uses a tree data structure that supports event pubsub. It allows you publish an event in a leaf node and subscribe the events in any nodes in the middle. That is, you can subscribe all events from all motion detectors in your living room using the path, 'motion/living-room'. Each detector fires the event in its node, 'motion/living-room/1' whenever it detects motion or no motions.
+It uses a tree data structure that supports event pubsub. It allows you publish an event in a leaf node and subscribe the events in any nodes in the middle. That is, you can subscribe all motion detect events in your living room using the path, 'motion/living-room', while each detector reports the event in the paths like 'motion/living-room/1'.
 
-To make this work with real world, it requires adpaters. For example, the adapters for lights and detector might look like this.
+To make this work with real devices, it requires adpaters. For example, the adapters for lights and detector might look like this.
 
 ```js
 // adapter for light 1.
 home.get('light/living-room/1').on('value', function(data) {
-  gpio.write(relay_pin, data.value.status);
+  gpio.write(relayPin, data.value.status);
 });
 
 // adapter for detector.
@@ -47,11 +47,13 @@ home.get('motion/living-room/1').setValue({status: false});
 
 ## Hardware
 
-As a proof of concept, I use Raspberry Pi to host the controller and adapters. For lights, I use a relay. For motion detector, a PIR sensor.
+As a proof of concept, I used a Raspberry Pi to host the controller and adapters. For lights, I use a relay, and for motion detector a PIR sensor.
 
-TBD: photos
+<img src="https://lh5.googleusercontent.com/-joiVtc6rkiQ/VPVAhNrm2BI/AAAAAAAF0ik/NWRqPjeuwTs/w1264-h1684-no/IMG_20150302_210248.jpg" width="200px">
 
-TBD: videos
+These are what I used.
+ * [PIR Motion Sensor Module](http://www.amazon.com/gp/product/B008AESDSY/ref=oh_aui_detailpage_o00_s00?ie=UTF8&psc=1)
+ * [2 Channel 5V Relay Shield Module](http://www.amazon.com/gp/product/B00E0NTPP4/ref=oh_aui_detailpage_o00_s00?ie=UTF8&psc=1)
 
 ## Control/monitoring
 
