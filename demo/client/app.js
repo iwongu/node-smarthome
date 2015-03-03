@@ -9,8 +9,7 @@ var config = {
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
-app.use('/smarthome-client.js', express.static(__dirname + '/smarthome-client.js'));
-app.use('/client.js', express.static(__dirname + '/client.js'));
+app.use('/build', express.static(__dirname + '/build'));
 
 server.listen(config.port, function() {
   console.log('listening on *:' + config.port);
