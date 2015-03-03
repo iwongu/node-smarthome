@@ -10,6 +10,7 @@ app.get('/', function (req, res) {
   res.sendFile(__dirname + '/index.html');
 });
 app.use('/build', express.static(__dirname + '/build'));
+app.use('/src', express.static(__dirname + '/src'));
 
 server.listen(config.port, function() {
   console.log('listening on *:' + config.port);

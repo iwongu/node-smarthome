@@ -8,7 +8,10 @@ module.exports = function(grunt) {
       build: {
         src: [
           'build/_bower.js',
-          '<%= pkg.name %>.js'
+          'src/node.js',
+          'src/fb-node.js',
+          'src/smarthome-client.js',
+          'src/<%= pkg.name %>.js'
         ],
         dest: 'build/<%= pkg.name %>.min.js'
       }
