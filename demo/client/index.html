@@ -1,0 +1,42 @@
+<html>
+  <head>
+    <title>Demo client</title>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body {
+      font-family: 'Open Sans', sans-serif;
+      }
+      .layout {
+      width: 400px;
+      margin: 10px auto;
+      text-align: center;
+      font-size: 30px;
+      }
+      #light {
+      height: 100px;
+      width: 100px;
+      background-color: black;
+      border: 3px solid grey;
+      border-radius: 50px;
+      margin: 0 auto;
+      cursor: pointer;
+      }
+      #light.turnedon {
+      background-color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="layout">
+      <div id="light"></div>
+      <div id="motion"></div>
+    </div>
+
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="https://cdn.firebase.com/js/client/2.2.1/firebase.js"></script>
+    <script src="client.js">
+    </script>
+  </body>
+</html>
+
